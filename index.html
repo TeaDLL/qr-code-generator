@@ -9,32 +9,54 @@
 <body>
   <div class="glass-container">
     <h1 class="title">QR Code Generator</h1>
-    <p class="description">Enter a link or message below to instantly generate a glowing QR code.</p>
+    <p class="description">Enter a link or message below to instantly generate and download a glowing QR code.</p>
     <input type="text" id="text" placeholder="Enter text or URL..." />
-    <div id="qrcode"></div>
+    <div class="qr-wrapper">
+      <div id="qrcode"></div>
+    </div>
+    <button id="downloadBtn" style="display: none;">Download QR Code</button>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
     const input = document.getElementById("text");
-    const qrcodeContainer = document.getElementById("qrcode");
+    const qrWrapper = document.getElementById("qrcode");
+    const downloadBtn = document.getElementById("downloadBtn");
 
-    let qr = new QRCode(qrcodeContainer, {
+    // Create single QRCode instance
+    const qr = new QRCode(qrWrapper, {
       text: "",
       width: 256,
       height: 256,
-      colorDark: "#ffffff",
-      colorLight: "rgba(255, 255, 255, 0.1)",
+      colorDark: "#000000",
+      colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.H
     });
 
+    // Optimized update
+    function updateQRCode(value) {
+      qr.makeCode(value);
+      downloadBtn.style.display = "inline-block";
+    }
+
     input.addEventListener("input", () => {
-      const value = input.value.trim();
-      if (value !== "") {
-        qr.clear();
-        qr.makeCode(value);
+      const val = input.value.trim();
+      if (val !== "") {
+        updateQRCode(val);
       } else {
         qr.clear();
+        downloadBtn.style.display = "none";
+      }
+    });
+
+    // Download QR Code
+    downloadBtn.addEventListener("click", () => {
+      const canvas = qrWrapper.querySelector("canvas");
+      if (canvas) {
+        const link = document.createElement("a");
+        link.download = "qr-code.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
       }
     });
   </script>
