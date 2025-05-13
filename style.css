@@ -1,1 +1,72 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #0f0f0f;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+}
 
+.glass-container {
+  width: 90%;
+  max-width: 600px;
+  padding: 60px 30px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 80px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+
+.title {
+  font-size: 32px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 16px;
+  color: #ccc;
+  margin-bottom: 30px;
+}
+
+input {
+  width: 80%;
+  max-width: 400px;
+  padding: 12px 20px;
+  font-size: 18px;
+  border: 2px solid white;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  outline: none;
+  margin-bottom: 30px;
+  box-shadow: 0 0 10px white;
+  transition: 0.3s;
+}
+
+input:focus {
+  box-shadow: 0 0 20px white;
+}
+
+#qrcode canvas {
+  border-radius: 12px;
+  box-shadow: 0 0 30px white;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
